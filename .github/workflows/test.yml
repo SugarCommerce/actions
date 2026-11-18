@@ -1,0 +1,109 @@
+name: Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  lock:
+    # A plugin with a composer.lock gets each package at the commit the lock
+    # recorded -- the fixture pins sugarcommerce/plugin one commit behind its
+    # tip, so a clone of the tip fails this.
+    name: From composer.lock (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest, macos-latest ]
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: ./setup-libraries
+        with:
+          working-directory: test/fixture
+
+      - name: Every package at its locked commit
+        working-directory: test/fixture
+        run: |
+          jq -r '.packages[] | [ .name, .dist.url, .dist.reference ] | @tsv' composer.lock |
+            while IFS=$'\t' read -r name path ref; do
+              head="$(git -C "$path" rev-parse HEAD)"
+              echo "$name: $head"
+              [ "$head" = "$ref" ] || { echo "::error::$name is at $head, the lock says $ref"; exit 1; }
+            done
+
+      - name: Run it again
+        # Already-cloned packages are left alone.
+        uses: ./setup-libraries
+        with:
+          working-directory: test/fixture
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+          tools: composer:v2
+
+      - name: composer install
+        working-directory: test/fixture
+        run: |
+          composer install --no-interaction --no-progress --no-scripts
+          for name in $(jq -r '.packages[].name' composer.lock); do
+            [ -f "vendor/$name/composer.json" ] || { echo "::error::$name was not installed"; exit 1; }
+          done
+
+  no-lock:
+    # Without a lock: what composer.json requires and what that requires, at
+    # the tip of each branch.
+    name: From composer.json
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: ./setup-libraries
+        with:
+          working-directory: test/no-lock
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+          tools: composer:v2
+
+      - name: composer update
+        working-directory: test/no-lock
+        run: |
+          composer update --no-interaction --no-progress --no-scripts
+          for name in arraypress/edd-registrars sugarcommerce/columns sugarcommerce/emails sugarcommerce/plugin sugarcommerce/text; do
+            [ -f "vendor/$name/composer.json" ] || { echo "::error::$name was not installed"; exit 1; }
+          done
+
+  missing:
+    # A commit that was never pushed fails the step, by name.
+    name: An unpushed commit fails
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Point the lock at a commit that does not exist
+        working-directory: test/fixture
+        run: |
+          jq '(.packages[] | select(.name == "sugarcommerce/text") | .dist.reference) = "0000000000000000000000000000000000000000"' composer.lock > lock.json
+          mv lock.json composer.lock
+
+      - uses: ./setup-libraries
+        id: setup
+        continue-on-error: true
+        with:
+          working-directory: test/fixture
+
+      - name: It failed
+        run: '[ "${{ steps.setup.outcome }}" = "failure" ]'

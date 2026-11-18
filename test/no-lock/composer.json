@@ -1,0 +1,33 @@
+{
+  "name": "sugarcommerce/actions-fixture",
+  "description": "What setup-libraries is tested against: a plugin that installs from the same path repositories the real ones do.",
+  "type": "project",
+  "license": "GPL-2.0-or-later",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "repositories": [
+    {
+      "type": "path",
+      "url": "../libraries/sugarcommerce/*",
+      "options": {
+        "symlink": false
+      }
+    },
+    {
+      "type": "path",
+      "url": "../libraries/edd-registrars",
+      "options": {
+        "symlink": false
+      }
+    }
+  ],
+  "require": {
+    "arraypress/edd-registrars": "dev-main",
+    "sugarcommerce/emails": "dev-main"
+  },
+  "config": {
+    "platform": {
+      "php": "8.3.0"
+    }
+  }
+}

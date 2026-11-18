@@ -1,0 +1,428 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "85e5713158b0b059e5ba0169ff2bc732",
+    "packages": [
+        {
+            "name": "arraypress/edd-registrars",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "../libraries/edd-registrars",
+                "reference": "80f5f8ec341c8155b261deefeae7848a573b78ee"
+            },
+            "require": {
+                "php": ">=8.3",
+                "sugarcommerce/columns": "dev-main"
+            },
+            "require-dev": {
+                "phpcompatibility/phpcompatibility-wp": "^2.1",
+                "phpunit/phpunit": "^12.0",
+                "squizlabs/php_codesniffer": "^3.13.5",
+                "sugarcommerce/conditions": "dev-main",
+                "wp-coding-standards/wpcs": "^3.4"
+            },
+            "suggest": {
+                "sugarcommerce/conditions": "For the EDD conditions in ArrayPress\\EDD\\Register\\Conditions (cart, checkout, customer, order, product, store, commission, recipient) and the EDD velocity counts."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ArrayPress\\EDD\\Register\\": "src/"
+                },
+                "files": [
+                    "src/ColumnFunctions.php",
+                    "src/CustomerStatFunctions.php",
+                    "src/EmailTagFunctions.php",
+                    "src/ExportColumnFunctions.php",
+                    "src/ExporterFunctions.php",
+                    "src/FieldFunctions.php",
+                    "src/LogViewFunctions.php",
+                    "src/RecountFunctions.php"
+                ]
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "ArrayPress\\EDD\\Register\\Tests\\": "tests/"
+                },
+                "exclude-from-classmap": [
+                    "/tests/bootstrap.php"
+                ]
+            },
+            "scripts": {
+                "test": [
+                    "phpunit"
+                ],
+                "lint": [
+                    "phpcs"
+                ],
+                "format": [
+                    "phpcbf --standard=phpcs-format.xml.dist"
+                ],
+                "format:check": [
+                    "phpcs --standard=phpcs-format.xml.dist"
+                ]
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "David Sherlock",
+                    "homepage": "https://arraypress.com/"
+                }
+            ],
+            "description": "Registration helpers for Easy Digital Downloads: admin columns, download fields, email tags, exporters, export columns, customer stats, log views and recount tools.",
+            "homepage": "https://github.com/arraypress/edd-registrars/",
+            "keywords": [
+                "admin",
+                "columns",
+                "easy-digital-downloads",
+                "edd",
+                "email-tags",
+                "exporters",
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/arraypress/edd-registrars/issues",
+                "source": "https://github.com/arraypress/edd-registrars"
+            },
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            }
+        },
+        {
+            "name": "sugarcommerce/columns",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "../libraries/sugarcommerce/columns",
+                "reference": "55f1630a1a0b088243a55657aa0cc7e9b6d3af90"
+            },
+            "require": {
+                "php": ">=8.3",
+                "sugarcommerce/plugin": "dev-main"
+            },
+            "require-dev": {
+                "phpcompatibility/phpcompatibility-wp": "^2.1",
+                "phpunit/phpunit": "^12.0",
+                "squizlabs/php_codesniffer": "^3.13.5",
+                "sugarcommerce/fields": "dev-main",
+                "wp-coding-standards/wpcs": "^3.4"
+            },
+            "suggest": {
+                "sugarcommerce/fields": "Draws a row action icon given as `set:name` (`heroicons-outline:star`) as inline SVG."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SugarCommerce\\Columns\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "SugarCommerce\\Columns\\Tests\\": "tests/"
+                },
+                "exclude-from-classmap": [
+                    "/tests/bootstrap.php"
+                ]
+            },
+            "scripts": {
+                "test": [
+                    "phpunit"
+                ],
+                "lint": [
+                    "phpcs"
+                ],
+                "format": [
+                    "phpcbf --standard=phpcs-format.xml.dist"
+                ],
+                "format:check": [
+                    "phpcs --standard=phpcs-format.xml.dist"
+                ]
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "David Sherlock",
+                    "homepage": "https://arraypress.com/"
+                }
+            ],
+            "description": "Columns, filters, bulk actions and row actions on WordPress's own list tables (posts, users, terms, comments and media), each declared as an array.",
+            "homepage": "https://github.com/SugarCommerce/columns",
+            "keywords": [
+                "admin",
+                "bulk-actions",
+                "columns",
+                "filters",
+                "list-table",
+                "row-actions",
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/SugarCommerce/columns/issues",
+                "source": "https://github.com/SugarCommerce/columns"
+            },
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            }
+        },
+        {
+            "name": "sugarcommerce/emails",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "../libraries/sugarcommerce/emails",
+                "reference": "9de6c63e4ba00dbda15242b77141fbba8a986ff7"
+            },
+            "require": {
+                "php": ">=8.3",
+                "sugarcommerce/plugin": "dev-main",
+                "sugarcommerce/text": "dev-main"
+            },
+            "require-dev": {
+                "phpcompatibility/phpcompatibility-wp": "^2.1",
+                "phpunit/phpunit": "^12.0",
+                "squizlabs/php_codesniffer": "^3.13.5",
+                "wp-coding-standards/wpcs": "^3.4"
+            },
+            "suggest": {
+                "sugarcommerce/money": "Writes out the amounts of the order_items component in the order's currency."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SugarCommerce\\Emails\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "SugarCommerce\\Emails\\Tests\\": "tests/"
+                },
+                "exclude-from-classmap": [
+                    "/tests/bootstrap.php",
+                    "/tests/stubs.php"
+                ]
+            },
+            "scripts": {
+                "test": [
+                    "phpunit"
+                ],
+                "lint": [
+                    "phpcs"
+                ],
+                "format": [
+                    "phpcbf --standard=phpcs-format.xml.dist"
+                ],
+                "format:check": [
+                    "phpcs --standard=phpcs-format.xml.dist"
+                ]
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "David Sherlock",
+                    "homepage": "https://arraypress.com/"
+                }
+            ],
+            "description": "Emails a plugin sends and a site owner can change: merge tags, HTML that survives Outlook, named transactional emails with saved wording, a switch, a look and a settings screen with Preview and Send a test, sent through wp_mail() or any API you give it.",
+            "homepage": "https://github.com/sugarcommerce/emails/",
+            "keywords": [
+                "email",
+                "email-templates",
+                "html-email",
+                "merge-tags",
+                "postmark",
+                "resend",
+                "transactional-email",
+                "wordpress",
+                "wp-mail"
+            ],
+            "support": {
+                "issues": "https://github.com/sugarcommerce/emails/issues",
+                "source": "https://github.com/sugarcommerce/emails"
+            },
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            }
+        },
+        {
+            "name": "sugarcommerce/plugin",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "../libraries/sugarcommerce/plugin",
+                "reference": "59d0f0da9f30185938a7f07cbffa16831e42e84d"
+            },
+            "require": {
+                "php": ">=8.3"
+            },
+            "require-dev": {
+                "phpcompatibility/phpcompatibility-wp": "^2.1",
+                "phpunit/phpunit": "^12.0",
+                "squizlabs/php_codesniffer": "^3.13.5",
+                "wp-coding-standards/wpcs": "^3.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SugarCommerce\\Plugin\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "SugarCommerce\\Plugin\\Tests\\": "tests/"
+                },
+                "exclude-from-classmap": [
+                    "/tests/bootstrap.php",
+                    "/tests/stubs/"
+                ]
+            },
+            "scripts": {
+                "test": [
+                    "phpunit"
+                ],
+                "lint": [
+                    "phpcs"
+                ],
+                "format": [
+                    "phpcbf --standard=phpcs-format.xml.dist"
+                ],
+                "format:check": [
+                    "phpcs --standard=phpcs-format.xml.dist"
+                ]
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "David Sherlock",
+                    "homepage": "https://arraypress.com/"
+                }
+            ],
+            "description": "Boot a WordPress plugin only when its PHP, WordPress and plugin requirements are met, say plainly when they are not, and enqueue the CSS and JavaScript a Composer package ships.",
+            "homepage": "https://github.com/sugarcommerce/plugin",
+            "keywords": [
+                "assets",
+                "bootstrap",
+                "composer",
+                "plugin",
+                "requirements",
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/sugarcommerce/plugin/issues",
+                "source": "https://github.com/sugarcommerce/plugin"
+            },
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            }
+        },
+        {
+            "name": "sugarcommerce/text",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "../libraries/sugarcommerce/text",
+                "reference": "f6e0c3c41183b77cd7a325fd6a20dfb054ddef49"
+            },
+            "require": {
+                "php": ">=8.3"
+            },
+            "require-dev": {
+                "phpcompatibility/phpcompatibility-wp": "^2.1",
+                "phpunit/phpunit": "^12.0",
+                "squizlabs/php_codesniffer": "^3.13.5",
+                "wp-coding-standards/wpcs": "^3.4"
+            },
+            "suggest": {
+                "ext-intl": "For numbers, percentages and sizes written in a language other than English, and accent-blind search."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SugarCommerce\\Text\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "SugarCommerce\\Text\\Tests\\": "tests/"
+                },
+                "exclude-from-classmap": [
+                    "/tests/bootstrap.php"
+                ]
+            },
+            "scripts": {
+                "test": [
+                    "phpunit"
+                ],
+                "lint": [
+                    "phpcs"
+                ],
+                "format": [
+                    "phpcbf --standard=phpcs-format.xml.dist"
+                ],
+                "format:check": [
+                    "phpcs --standard=phpcs-format.xml.dist"
+                ]
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "David Sherlock",
+                    "homepage": "https://arraypress.com/"
+                }
+            ],
+            "description": "Text for people to read and input made safe to keep: truncation, case, lists and plurals, numbers and percentages, bytes and durations, forgiving search, pagination, and CSV a spreadsheet will not run.",
+            "homepage": "https://github.com/sugarcommerce/text/",
+            "keywords": [
+                "csv",
+                "formatting",
+                "humanize",
+                "input",
+                "pagination",
+                "sanitize",
+                "search",
+                "text",
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/sugarcommerce/text/issues",
+                "source": "https://github.com/sugarcommerce/text"
+            },
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            }
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "arraypress/edd-registrars": 20,
+        "sugarcommerce/emails": 20
+    },
+    "prefer-stable": true,
+    "prefer-lowest": false,
+    "platform": {},
+    "platform-dev": {},
+    "platform-overrides": {
+        "php": "8.3.0"
+    },
+    "plugin-api-version": "2.11.0"
+}

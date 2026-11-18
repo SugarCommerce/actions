@@ -1,0 +1,33 @@
+name: Set up SugarCommerce libraries
+description: Clones the packages a plugin installs from Composer path repositories, at the commits its composer.lock recorded.
+author: ArrayPress Limited
+
+inputs:
+  working-directory:
+    description: The folder with the plugin's composer.json and composer.lock.
+    default: .
+  packages:
+    description: Which path packages to clone, as a regular expression over the package name.
+    default: '^(sugarcommerce/.+|arraypress/edd-registrars)$'
+  token:
+    description: A token that can read the package repositories. The public ones need nothing more than the default.
+    default: ${{ github.token }}
+  server:
+    description: Where the repositories live; a package's repository is <server>/<vendor>/<name>.
+    default: https://github.com
+
+runs:
+  using: composite
+  steps:
+    - name: Clone the libraries
+      shell: bash
+      env:
+        WORKING_DIRECTORY: ${{ inputs.working-directory }}
+        PACKAGES: ${{ inputs.packages }}
+        TOKEN: ${{ inputs.token }}
+        SERVER: ${{ inputs.server }}
+      run: '"$GITHUB_ACTION_PATH/setup-libraries.sh"'
+
+branding:
+  icon: package
+  color: purple
