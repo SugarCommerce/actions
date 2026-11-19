@@ -52,7 +52,20 @@ clone() {
 	git -C "$dest" init -q
 	git -C "$dest" remote add origin "$url"
 
-	if ! git ${auth[@]+"${auth[@]}"} -C "$dest" fetch -q --depth 1 --no-tags origin "${ref:-HEAD}"; then
+	# A stalled connection gives up after 30 seconds under 1 KB/s instead of
+	# hanging the job, and gets two more tries.
+	local try=1
+	until git ${auth[@]+"${auth[@]}"} -c http.lowSpeedLimit=1000 -c http.lowSpeedTime=30 \
+		-C "$dest" fetch -q --depth 1 --no-tags origin "${ref:-HEAD}"; do
+		if [ "$try" -ge 3 ]; then
+			break
+		fi
+		try=$((try + 1))
+		echo "$name: fetch failed, trying again ($try of 3)"
+		sleep $((try * 2))
+	done
+
+	if [ "$(git -C "$dest" rev-parse -q --verify FETCH_HEAD 2>/dev/null)" = "" ]; then
 		if [ -n "$ref" ]; then
 			echo "::error::$name: could not fetch commit $ref from $url. Is it pushed?"
 		else
